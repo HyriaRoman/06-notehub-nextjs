@@ -30,6 +30,11 @@ export async function fetchNotes(
   return res.data;
 }
 
+export async function fetchNoteById(id: NoteIdm): Promise<Note | null> {
+  const res = await NOTEHUB_API.get<Note>(`/notes/${id}`);
+  return res.data || null;
+}
+
 export async function createNote(newNote: NewNote): Promise<Note> {
   const res = await NOTEHUB_API.post<Note>("/notes", newNote);
   return res.data;
