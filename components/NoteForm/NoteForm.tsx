@@ -19,7 +19,7 @@ const NOTE_FORM_SCHEMA = Yup.object().shape({
   tag: Yup.string().oneOf(
     ["Todo", "Work", "Personal", "Meeting", "Shopping"],
     "Invalid tag",
-  ),
+  ).required("Tag is required"),
 });
 
 interface NoteFormProps {
@@ -69,7 +69,7 @@ export default function NoteForm({ onCancel, onSuccess }: NoteFormProps) {
             autoComplete="off"
           />
           <ErrorMessage name="title" className={css.error}>
-            {() => <ErrorDisplay />}
+            {(error) => <ErrorDisplay>{error}</ErrorDisplay>}
           </ErrorMessage>
         </div>
         <div className={css.formGroup}>
@@ -82,7 +82,7 @@ export default function NoteForm({ onCancel, onSuccess }: NoteFormProps) {
             className={css.textarea}
           />
           <ErrorMessage name="content" className={css.error}>
-            {() => <ErrorDisplay />}
+            {(error) => <ErrorDisplay>{error}</ErrorDisplay>}
           </ErrorMessage>
         </div>
         <div className={css.formGroup}>
@@ -100,7 +100,7 @@ export default function NoteForm({ onCancel, onSuccess }: NoteFormProps) {
             <option value="Shopping">Shopping</option>
           </Field>
           <ErrorMessage name="tag" className={css.error}>
-            {() => <ErrorDisplay />}
+            {(error) => <ErrorDisplay>{error}</ErrorDisplay>}
           </ErrorMessage>
         </div>
         <div className={css.actions}>
