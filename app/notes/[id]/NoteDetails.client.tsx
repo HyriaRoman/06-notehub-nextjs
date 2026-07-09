@@ -23,14 +23,16 @@ export default function NoteDetailsClient() {
 
   return <main className={css.main}>	
 	<div className={css.container}>
-		<div className={css.item}>
+  {isLoading && <p>Loading, please wait...</p>}
+  {isError && <p>Error! Try reloading...</p>}
+  { note && <div className={css.item}>
 		  <div className={css.header}>
 		    <h2>{note.title}</h2>
 		  </div>
 		  <p className={css.tag}>{note.tag}</p>
 		  <p className={css.content}>{note.content}</p>
 		  <p className={css.date}>{parseDate(note)}</p>
-		</div>
+		</div>}
 	</div>
 </main>
 ;
