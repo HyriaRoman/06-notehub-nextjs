@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import useNoteDeleter from "../../hooks/useNoteDeleter";
 import type { Note } from "../../types/note";
 
@@ -18,6 +20,7 @@ export default function NoteList({ notes }: NoteListProps) {
           <p className={css.content}>{note.content}</p>
           <div className={css.footer}>
             <span className={css.tag}>{note.tag}</span>
+            <Link className={css.link} href={`/notes/${note.id}`}>View details</Link>
             <button className={css.button} onClick={() => deleteNote(note.id)}>
               Delete
             </button>
