@@ -17,6 +17,7 @@ export default function useNoteList(query: string, page: number): NoteList {
       return await fetchNotes(query, page);
     },
     placeholderData: (previousData) => previousData,
+    refetchOnMount: false,
   });
 
   return {
