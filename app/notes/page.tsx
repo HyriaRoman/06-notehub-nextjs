@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-query";
 
 import { fetchNotes } from "@/lib/api";
-import Notes from "./Notes.client.tsx";
+import Notes from "./Notes.client";
 
 export default async function Page() {
   const queryClient = new QueryClient();
