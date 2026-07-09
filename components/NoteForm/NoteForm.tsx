@@ -4,8 +4,8 @@ import * as Yup from "yup";
 
 import Loader from "../Loader/Loader";
 import ErrorDisplay from "../ErrorMessage/ErrorMessage";
-import type { NoteTag } from "../../types/note";
-import useNoteCreator from "../../hooks/useNoteCreator";
+import type { NoteTag } from "@/types/note";
+import useNoteCreator from "@/hooks/useNoteCreator";
 
 import css from "./NoteForm.module.css";
 

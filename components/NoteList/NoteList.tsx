@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-import useNoteDeleter from "../../hooks/useNoteDeleter";
-import type { Note } from "../../types/note";
+import useNoteDeleter from "@/hooks/useNoteDeleter";
+import type { Note } from "@/types/note";
 
 import css from "./NoteList.module.css";
 
