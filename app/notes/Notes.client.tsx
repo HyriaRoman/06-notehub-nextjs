@@ -47,7 +47,7 @@ export default function Notes() {
         </button>
       </header>
       {isLoading && <Loader />}
-      {isError && <ErrorMessage />}
+      {isError && <ErrorMessage>Something went wrong</ErrorMessage>}
       {notes.length > 0 && <NoteList notes={notes} />}
       {isModalOpen && (
         <Modal onClose={() => setModalOpen(false)}>
