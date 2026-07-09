@@ -68,7 +68,9 @@ export default function NoteForm({ onCancel, onSuccess }: NoteFormProps) {
             className={css.input}
             autoComplete="off"
           />
-          <ErrorMessage name="title" className={css.error}>{() => <ErrorDisplay />}</ErrorMessage>
+          <ErrorMessage name="title" className={css.error}>
+            {() => <ErrorDisplay />}
+          </ErrorMessage>
         </div>
         <div className={css.formGroup}>
           <label htmlFor={`${formId}-content`}>Content</label>
@@ -79,7 +81,9 @@ export default function NoteForm({ onCancel, onSuccess }: NoteFormProps) {
             rows={8}
             className={css.textarea}
           />
-          <ErrorMessage name="content" className={css.error}>{() => <ErrorDisplay />}</ErrorMessage>
+          <ErrorMessage name="content" className={css.error}>
+            {() => <ErrorDisplay />}
+          </ErrorMessage>
         </div>
         <div className={css.formGroup}>
           <label htmlFor={`${formId}-tag`}>Tag</label>
@@ -95,7 +99,9 @@ export default function NoteForm({ onCancel, onSuccess }: NoteFormProps) {
             <option value="Meeting">Meeting</option>
             <option value="Shopping">Shopping</option>
           </Field>
-          <ErrorMessage name="tag" className={css.error}>{() => <ErrorDisplay />}</ErrorMessage>
+          <ErrorMessage name="tag" className={css.error}>
+            {() => <ErrorDisplay />}
+          </ErrorMessage>
         </div>
         <div className={css.actions}>
           <button

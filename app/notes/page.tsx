@@ -1,5 +1,5 @@
-import css from "./page.module.css";
+import Notes from "./Notes.client.tsx";
 
 export default function Page() {
-  return <div></div>;
+  return <Notes />;
 }

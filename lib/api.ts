@@ -5,7 +5,7 @@ import type { Note, NewNote, NoteId } from "../types/note.ts";
 const NOTEHUB_API = axios.create({
   baseURL: "https://notehub-public.goit.study/api/",
   headers: {
-    Authorization: `Bearer ${import.meta.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
+    Authorization: `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`,
   },
   params: {
     perPage: 12,
