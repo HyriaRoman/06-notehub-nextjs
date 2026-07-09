@@ -10,6 +10,7 @@ interface NoteListProps {
 }
 
 export default function NoteList({ notes }: NoteListProps) {
+  // `useNoteDeleter` uses `useMutation` and `useQueryClient` internally
   const { deleteNote } = useNoteDeleter();
 
   return (
