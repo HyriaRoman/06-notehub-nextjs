@@ -3,6 +3,7 @@ import "./globals.css";
 
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
+import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 
 export const metadata: Metadata = {
   title: "Notehub",
@@ -18,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Header />
-        {children}
+        <TanStackProvider>{children}</TanStackProvider>
         <Footer />
       </body>
     </html>
