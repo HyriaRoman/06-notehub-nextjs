@@ -19,21 +19,24 @@ function parseDate(note: Note): string {
 
 export default function NoteDetailsClient() {
   const { id } = useParams<{ id: string }>();
-  const {note, isLoading, isError} = useNoteById(id);
+  const { note, isLoading, isError } = useNoteById(id);
 
-  return <main className={css.main}>	
-	<div className={css.container}>
-  {isLoading && <p>Loading, please wait...</p>}
-  {isError && <p>Error! Try reloading...</p>}
-  { note && <div className={css.item}>
-		  <div className={css.header}>
-		    <h2>{note.title}</h2>
-		  </div>
-		  <p className={css.tag}>{note.tag}</p>
-		  <p className={css.content}>{note.content}</p>
-		  <p className={css.date}>{parseDate(note)}</p>
-		</div>}
-	</div>
-</main>
-;
+  return (
+    <main className={css.main}>
+      <div className={css.container}>
+        {isLoading && <p>Loading, please wait...</p>}
+        {isError && <p>Error! Try reloading...</p>}
+        {note && (
+          <div className={css.item}>
+            <div className={css.header}>
+              <h2>{note.title}</h2>
+            </div>
+            <p className={css.tag}>{note.tag}</p>
+            <p className={css.content}>{note.content}</p>
+            <p className={css.date}>{parseDate(note)}</p>
+          </div>
+        )}
+      </div>
+    </main>
+  );
 }
