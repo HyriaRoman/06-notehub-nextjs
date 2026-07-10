@@ -121,7 +121,7 @@ export default function NoteForm({ onCancel, onSuccess }: NoteFormProps) {
           </button>
         </div>
         {noteCreator.isLoading && <Loader />}
-        {noteCreator.isError && <ErrorDisplay />}
+        {noteCreator.isError && <ErrorDisplay>Something happened</ErrorDisplay>}
       </Form>
     </Formik>
   );

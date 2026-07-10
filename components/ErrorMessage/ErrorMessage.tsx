@@ -1,7 +1,7 @@
 import css from "./ErrorMessage.module.css";
 
 interface ErrorMessageProps {
-  children: React.ReactChild;
+  children: React.ReactNode;
 }
 
 export default function ErrorMessage({children}:ErrorMessageProps) {
