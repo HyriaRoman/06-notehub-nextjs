@@ -22,8 +22,8 @@ export default function Notes() {
   const { notes, totalPages, isLoading, isError } = useNoteList(query, page);
 
   const handleQueryUpdate = useDebouncedCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setQuery(event.target.value);
+    (newQuery: string) => {
+      setQuery(newQuery);
       setCurrentPage(1);
     },
     250,
