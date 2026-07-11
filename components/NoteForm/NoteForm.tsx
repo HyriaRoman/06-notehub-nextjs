@@ -1,11 +1,12 @@
 import { useId } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import Loader from "../Loader/Loader";
 import ErrorDisplay from "../ErrorMessage/ErrorMessage";
-import type { NoteTag } from "@/types/note";
-import useNoteCreator from "@/hooks/useNoteCreator";
+import type { NoteTag, NewNote } from "@/types/note";
+import { createNote } from "@/lib/api";
 
 import css from "./NoteForm.module.css";
 
@@ -29,7 +30,17 @@ interface NoteFormProps {
 
 export default function NoteForm({ onCancel, onSuccess }: NoteFormProps) {
   const formId = useId();
-  const noteCreator = useNoteCreator();
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isError } = useMutation({
+    mutationFn: async (newNote: NewNote) => {
+      return await createNote(newNote);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
+    },
+  });
+
 
   async function handleSubmit(data: {
     title: string;
@@ -37,7 +48,7 @@ export default function NoteForm({ onCancel, onSuccess }: NoteFormProps) {
     tag: string;
   }) {
     try {
-      await noteCreator.createNote({
+      await mutateAsync({
         title: data.title.trim(),
         content: data.content.trim(),
         tag: data.tag as NoteTag,
@@ -108,20 +119,20 @@ export default function NoteForm({ onCancel, onSuccess }: NoteFormProps) {
             type="button"
             className={css.cancelButton}
             onClick={onCancel}
-            disabled={noteCreator.isLoading}
+            disabled={isPending}
           >
             Cancel
           </button>
           <button
             type="submit"
             className={css.submitButton}
-            disabled={noteCreator.isLoading}
+            disabled={isPending}
           >
             Create note
           </button>
         </div>
-        {noteCreator.isLoading && <Loader />}
-        {noteCreator.isError && <ErrorDisplay>Something happened</ErrorDisplay>}
+        {isPending && <Loader />}
+        {isError && <ErrorDisplay>Something happened</ErrorDisplay>}
       </Form>
     </Formik>
   );
