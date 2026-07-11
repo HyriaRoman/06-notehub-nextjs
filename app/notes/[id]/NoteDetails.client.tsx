@@ -1,8 +1,9 @@
 "use client";
 
 import { useParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 
-import useNoteById from "@/hooks/useNoteById";
+import { fetchNoteById } from "@/lib/api";
 import type { Note } from "@/types/note";
 
 import css from "./NoteDetails.module.css";
@@ -19,7 +20,14 @@ function parseDate(note: Note): string {
 
 export default function NoteDetailsClient() {
   const { id } = useParams<{ id: string }>();
-  const { note, isLoading, isError } = useNoteById(id);
+  const { data: note, isLoading, isError } = useQuery({
+    queryKey: ["note", id],
+    queryFn: async () => {
+      return await fetchNoteById(id);
+    },
+    placeholderData: (previousData) => previousData,
+    refetchOnMount: false,
+  });
 
   return (
     <main className={css.main}>
