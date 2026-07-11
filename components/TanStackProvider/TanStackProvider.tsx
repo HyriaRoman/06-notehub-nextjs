@@ -7,9 +7,9 @@ interface TanStackProviderProps {
   children: React.ReactNode;
 }
 
-export default function TanStackProvider({ children }: TanStackProviderProps) {
-  const queryClient = new QueryClient();
+const queryClient = new QueryClient();
 
+export default function TanStackProvider({ children }: TanStackProviderProps) {
   return (
     <QueryClientProvider client={queryClient}>
       {children}

@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import { useQuery } from "@tanstack/react-query";
 
-import useNoteList from "@/hooks/useNoteList";
+import { fetchNotes } from "@/lib/api";
+import type { Note } from "@/types/note";
 
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
@@ -15,11 +17,23 @@ import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 
 import css from "./Notes.module.css";
 
+interface NotesResponse {
+  notes: Note[];
+  totalPages: number;
+}
+
 export default function Notes() {
   const [query, setQuery] = useState<string>("");
   const [page, setCurrentPage] = useState<number>(1);
 
-  const { notes, totalPages, isLoading, isError } = useNoteList(query, page);
+  const { data, isLoading, isError } = useQuery<NotesResponse>({
+    queryKey: ["notes", query, page],
+    queryFn: async () => {
+      return await fetchNotes(query, page);
+    },
+    placeholderData: (previousData) => previousData,
+    refetchOnMount: false,
+  });
 
   const handleQueryUpdate = useDebouncedCallback(
     (newQuery: string) => {
@@ -35,10 +49,10 @@ export default function Notes() {
     <div className={css.app}>
       <header className={css.toolbar}>
         <SearchBox query={query} onQueryUpdate={handleQueryUpdate} />
-        {totalPages > 1 && (
+        {data && data.totalPages > 1 && (
           <Pagination
             page={page}
-            totalPages={totalPages}
+            totalPages={data.totalPages}
             onPageChange={setCurrentPage}
           />
         )}
@@ -48,7 +62,7 @@ export default function Notes() {
       </header>
       {isLoading && <Loader />}
       {isError && <ErrorMessage>Something went wrong</ErrorMessage>}
-      {notes.length > 0 && <NoteList notes={notes} />}
+      {data && data.notes?.length > 0 && <NoteList notes={data.notes} />}
       {isModalOpen && (
         <Modal onClose={() => setModalOpen(false)}>
           <NoteForm
